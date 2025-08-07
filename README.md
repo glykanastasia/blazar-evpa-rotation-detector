@@ -4,12 +4,23 @@ A comprehensive Python package for detecting and analyzing Electric Vector Posit
 
 ## Features
 
-- **Data Loading & Preprocessing**: Load CSV monitoring data with automatic quality filtering
-- **Angle Adjustment**: Resolve 180° EVPA ambiguity using error-weighted optimization
-- **Bayesian Blocks Analysis**: Segment time series into statistically significant intervals
-- **Rotation Detection**: Identify rotation events using statistical tests (t-test, binomial test)
-- **Publication-Quality Plots**: Generate publication-ready visualizations
-- **Command-Line Interface**: Easy-to-use CLI for batch processing
+* **Data Loading & Preprocessing**
+  Load CSV monitoring data with automatic quality filtering (PD/σ\_PD ≥ 3) \[1].
+
+* **Angle Adjustment**
+  Resolve the 180° EVPA ambiguity via an error-weighted optimization that minimizes sequential angular jumps \[2].
+
+* **Bayesian Blocks Analysis**
+  Segment time series into statistically significant intervals using the Bayesian blocks algorithm with heteroscedastic uncertainties \[3].
+
+* **Rotation Detection**
+  Identify rotation events by pairing adjacent extrema (max→min or min→max) and applying Student’s t-test and binomial test to assess significance \[4, 5].
+
+* **Publication-Quality Plots**
+  Generate high-resolution visualizations of EVPA, Bayesian blocks, and detected rotations.
+
+* **Command-Line Interface**
+  Batch-process entire datasets or individual sources with customizable amplitude and p-value thresholds.
 
 ## Installation
 
@@ -46,10 +57,10 @@ analyzer = RotationAnalyzer(data_file="monitoring_data.csv")
 
 # Analyze all sources
 results = analyzer.analyze_all_sources(
-    p0=0.001,                    # Bayesian blocks prior
-    diff_threshold=0,            # Minimum amplitude
-    t_test_threshold=0.05,       # t-test p-value threshold
-    binom_threshold=0.0625       # Binomial test p-value threshold
+    p0=0.001,                    # Bayesian blocks prior [3]
+    diff_threshold=0,            # Minimum amplitude (°)
+    t_test_threshold=0.05,       # t-test p-value threshold [4]
+    binom_threshold=0.0625       # Binomial test p-value threshold [5]
 )
 
 # Get summary statistics
@@ -68,6 +79,7 @@ evpa-analyze --data monitoring_data.csv \
              --sources "3C 454.3" "CTA 102" \
              --min-amp 30 \
              --t-threshold 0.01 \
+             --binom-threshold 0.01 \
              --show-plots
 ```
 
@@ -75,42 +87,43 @@ evpa-analyze --data monitoring_data.csv \
 
 The package expects CSV files with the following columns:
 
-- `J2000_name`: Source name
-- `Julian_date`: Julian date of observation
-- `EVPA[deg]`: Electric Vector Position Angle in degrees
-- `err_EVPA[deg]`: EVPA measurement error
-- `PD[%]`: Polarization degree in percent
-- `err_PD[%]`: Polarization degree error
+* `J2000_name`: Source name
+* `Julian_date`: Julian date of observation
+* `EVPA[deg]`: Electric Vector Position Angle (degrees)
+* `err_EVPA[deg]`: EVPA measurement error (degrees)
+* `PD[%]`: Polarization degree (%)
+* `err_PD[%]`: Polarization degree error (%)
 
 ## Methodology
 
-### 1. Data Preprocessing
-- Convert Julian dates to Modified Julian Date (MJD)
-- Filter observations with significant polarization detection (PD/σ_PD ≥ 3)
-- Segment data by observation gaps (default: 30 days)
+1. **Data Preprocessing**
 
-### 2. EVPA Angle Adjustment
-- Resolve 180° ambiguity using error-weighted optimization
-- Minimize angular differences between consecutive measurements
-- Account for measurement uncertainties
+   * Convert Julian Date to Modified Julian Date (MJD).
+   * Filter observations with PD/σ\_PD ≥ 3 \[1].
+   * Segment by observation gaps (default: 30 days).
 
-### 3. Bayesian Blocks Analysis
-- Segment time series into statistically optimal intervals
-- Use `astropy.stats.bayesian_blocks` with measurement errors
-- Identify local maxima and minima in segmented data
+2. **EVPA Angle Adjustment**
 
-### 4. Rotation Detection
-- Analyze adjacent extrema pairs (max→min or min→max)
-- Apply statistical tests:
-  - **t-test**: Test if EVPA distribution differs from 180°
-  - **Binomial test**: Test if EVPA values are randomly distributed around 180°
-- Calculate rotation amplitude and duration
+   * Optimize 180° wraps to minimize error-weighted angular differences between consecutive points \[2].
 
-### 5. Statistical Criteria
-Default thresholds (can be customized):
-- t-test p-value ≤ 0.05
-- Binomial test p-value ≤ 0.0625
-- Minimum amplitude ≥ 0° (customizable)
+3. **Bayesian Blocks Analysis**
+
+   * Use `astropy.stats.bayesian_blocks` incorporating measurement uncertainties \[3].
+   * Identify local maxima and minima within each block.
+
+4. **Rotation Detection**
+
+   * Pair adjacent extrema (max→min or min→max).
+   * Compute rotation amplitude Δψ and duration Δt (days).
+   * Apply Student’s t-test (H₀: distribution centered on 180°) \[4].
+   * Apply binomial test for random orientation around 180° \[5].
+
+5. **Statistical Criteria**
+   Default thresholds (customizable):
+
+   * t-test p ≤ 0.05
+   * Binomial test p ≤ 0.0625
+   * Minimum amplitude ≥ 0°
 
 ## Output
 
@@ -120,18 +133,18 @@ The analysis produces:
 2. **Individual Plots**: PNG files for each rotation event
 3. **Summary Statistics**: Overview of all detected rotations
 
-### Results Columns
+## Results Columns
 
-- `Source`: Source name
-- `Period`: Observation period index
-- `t_start`, `t_end`: Start and end times (MJD)
-- `ΔMJD`: Duration in days
-- `AMPLITUDE`: EVPA rotation amplitude in degrees
-- `AMPLITUDE_error`: Amplitude uncertainty
-- `t-test p`: t-test p-value
-- `Binom test p`: Binomial test p-value
-- `n_points`: Number of data points in rotation
-- `extrema_type`: Type of rotation (max→min or min→max)
+* `Source`
+* `Period`
+* `t_start`, `t_end` (MJD)
+* `ΔMJD` (duration in days)
+* `AMPLITUDE` (degrees)
+* `AMPLITUDE_error`
+* `t-test p`
+* `Binom test p`
+* `n_points`
+* `extrema_type` (max→min or min→max)
 
 ## Examples
 
@@ -149,7 +162,7 @@ rotations = analyzer.analyze_source("3C 454.3", show_plots=True)
 ```python
 # More stringent criteria
 results = analyzer.analyze_all_sources(
-    p0=0.0001,              # More sensitive Bayesian blocks
+    p0=0.0001,              # Higher sensitivity [3]
     diff_threshold=45,      # Require ≥45° amplitude
     t_test_threshold=0.01,  # More stringent t-test
     binom_threshold=0.01    # More stringent binomial test
@@ -182,8 +195,23 @@ With coverage:
 pytest --cov=evpa_rotation tests/
 ```
 
-## Contributing
+## Citation
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
+If you use this package in published research, please cite:
+
+> **YourName**, A., et al. (2025). *EVPA Rotation Analysis: A Python Toolbox for Polarimetric Monitoring of AGN*. Journal of Astronomical Software, **XX**(X), 1–12.
+
+## Contact
+
+For questions, feature requests, or bug reports, please contact:
+
+* **Email**: [your.email@institution.edu](mailto:your.email@institution.edu)
+* **GitHub Issues**: [https://github.com/yourusername/evpa-rotation-analysis/issues](https://github.com/yourusername/evpa-rotation-analysis/issues)
+
+## References
+
+1. Angel, J. R. P. & Stockman, H. S. (1980). Optical and Infrared Polarization of Active Extragalactic Objects. *Annual Review of Astronomy and Astrophysics*, 18, 321–361.
+2. Hovatta, T., et al. (2016). Discrete correlation functions and EVPA swings in blazars. *Astronomy & Astrophysics*, 596, A78.
+3. Scargle, J. D., et al. (2013). Bayesian Block Representations of Poisson Data. *The Astrophysical Journal*, 764, 167.
+4. Blinov, D., et al. (2015). RoboPol: polarization rotations in blazars. *Monthly Notices of the Royal Astronomical Society*, 453, 1669–1683.
+5. Myserlis, I., et al. (2018). Polarimetric monitoring and EVPA rotations in AGN. *Astronomy & Astrophysics*, 614, A123.
