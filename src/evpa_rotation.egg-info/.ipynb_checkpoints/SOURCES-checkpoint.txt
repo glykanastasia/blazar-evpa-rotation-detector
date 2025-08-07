@@ -1,0 +1,13 @@
+README.md
+setup.py
+src/evpa_rotation/__init__.py
+src/evpa_rotation/angles.py
+src/evpa_rotation/bayesian_blocks.py
+src/evpa_rotation/loader.py
+src/evpa_rotation/plotter.py
+src/evpa_rotation.egg-info/PKG-INFO
+src/evpa_rotation.egg-info/SOURCES.txt
+src/evpa_rotation.egg-info/dependency_links.txt
+src/evpa_rotation.egg-info/requires.txt
+src/evpa_rotation.egg-info/top_level.txt
+tests/test_angles.py

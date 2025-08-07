@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: evpa_rotation
+Version: 0.1
+Summary: EVPA rotation analysis package
+Author: Your Name
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: scienceplots
+Requires-Dist: astropy
+Requires-Dist: scipy
+Requires-Dist: tqdm
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: summary

@@ -1,0 +1,7 @@
+numpy
+pandas
+matplotlib
+scienceplots
+astropy
+scipy
+tqdm

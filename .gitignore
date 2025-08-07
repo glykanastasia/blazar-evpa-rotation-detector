@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+*.csv
+evpa-env/
+rotationspbinom0_0625correct2/
