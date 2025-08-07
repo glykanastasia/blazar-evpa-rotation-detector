@@ -118,7 +118,7 @@ evpa-analyze --data monitoring_data.csv \
 | `PD[%]`         | Polarization degree (%)       |
 | `err_PD[%]`     | Polarization uncertainty (%)  |
 
-\------------------|-------------------------------------|
+\-------------------------------------|
 \| `J2000_name`     | Source identifier                   |
 \| `Julian_date`    | Observation date (Julian Day)       |
 \| `EVPA[deg]`      | EVPA in degrees                     |
@@ -205,11 +205,11 @@ pytest --cov=evpa_rotation  # Coverage report
 
 **Citation:**
 
-> Glykopoulou Anastasia (2025). *EVPA Rotation Analysis: blazar-evpa-rotation-detector*. GitHub repository. Commit d4dbd2b (Aug 7, 2025). [https://github.com/glykanastasia/blazar-evpa-rotation-detector](https://github.com/glykanastasia/blazar-evpa-rotation-detector)
+> Glykopoulou Anastasiia (2025). *EVPA Rotation Analysis: blazar-evpa-rotation-detector*. GitHub repository. Commit d4dbd2b (Aug 7, 2025). [https://github.com/glykanastasia/blazar-evpa-rotation-detector](https://github.com/glykanastasia/blazar-evpa-rotation-detector)
 
 **Contact & Support:**
 
-* **Developer:** Glykopoulou Anastasia (Bachelor Student)
+* **Developer:** Glykopoulou Anastasiia (Bachelor Student)
   Department of Physics, University of Crete
   Institute of Astrophysics, Foundation for Research and Technology – Hellas (FORTH)
   Email: [glykopoulouanastasi@gmail.com](mailto:glykopoulouanastasi@gmail.com)
