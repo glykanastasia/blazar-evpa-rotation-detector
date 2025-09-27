@@ -76,12 +76,13 @@ pip install -e .[dev,docs,plotting]
 ```python
 from evpa_rotation import RotationAnalyzer
 
-analyzer = RotationAnalyzer(data_file="monitoring_data.csv")
+analyzer = RotationAnalyzer(data_file="data/monitoring_data.csv")
 results = analyzer.analyze_all_sources(
-    p0=0.001, diff_threshold=0, 
+    p0=0.001, diff_threshold=90,
     t_test_threshold=0.05, binom_threshold=0.0625
 )
 print(analyzer.get_summary_statistics())
+
 ```
 
 ### 3.2 Command Line
@@ -211,4 +212,5 @@ pytest --cov=evpa_rotation  # Coverage report
 5. Myserlis, I., Komossa, S., Angelakis, E., Gómez, J. L., Karamanavis, V., Krichbaum, T. P., Bach, U., et al. (2018). *Polarimetric monitoring and EVPA rotations in AGN*. Astronomy & Astrophysics, 619, A88. [https://doi.org/10.1051/0004-6361/201732273](https://doi.org/10.1051/0004-6361/201732273)
 
 6. Blinov, D., Kiehlmann, S., Pavlidou, V., Panopoulou, G. V., Skalidis, R., Angelakis, E., Casadio, C., et al. (2021). *RoboPol: connection between optical polarization plane rotations and gamma-ray flares in blazars*. Monthly Notices of the Royal Astronomical Society, 501, 3715–3726. [https://doi.org/10.1093/mnras/staa3777](https://doi.org/10.1093/mnras/staa3777)
+
 
