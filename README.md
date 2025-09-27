@@ -214,3 +214,4 @@ pytest --cov=evpa_rotation  # Coverage report
 6. Blinov, D., Kiehlmann, S., Pavlidou, V., Panopoulou, G. V., Skalidis, R., Angelakis, E., Casadio, C., et al. (2021). *RoboPol: connection between optical polarization plane rotations and gamma-ray flares in blazars*. Monthly Notices of the Royal Astronomical Society, 501, 3715–3726. [https://doi.org/10.1093/mnras/staa3777](https://doi.org/10.1093/mnras/staa3777)
 
 
+
