@@ -187,11 +187,11 @@ pytest --cov=evpa_rotation  # Coverage report
 
 **Citation:**
 
-> Glykopoulou Anastasiia (2025). *EVPA Rotation Analysis: blazar-evpa-rotation-detector*. GitHub repository. Commit d4dbd2b (Aug 7, 2025). [https://github.com/glykanastasia/blazar-evpa-rotation-detector](https://github.com/glykanastasia/blazar-evpa-rotation-detector)
+> Glykopoulou Anastasia (2025). *EVPA Rotation Analysis: blazar-evpa-rotation-detector*. GitHub repository. Commit d4dbd2b (Aug 7, 2025). [https://github.com/glykanastasia/blazar-evpa-rotation-detector](https://github.com/glykanastasia/blazar-evpa-rotation-detector)
 
 **Contact & Support:**
 
-* **Developer:** Glykopoulou Anastasiia (Bachelor Student)  
+* **Developer:** Glykopoulou Anastasia (Bachelor Student)  
   Department of Physics, University of Crete  
   Institute of Astrophysics, Foundation for Research and Technology – Hellas (FORTH)  
   Email: [glykopoulouanastasia@gmail.com](mailto:glykopoulouanastasi@gmail.com)
@@ -212,6 +212,7 @@ pytest --cov=evpa_rotation  # Coverage report
 5. Myserlis, I., Komossa, S., Angelakis, E., Gómez, J. L., Karamanavis, V., Krichbaum, T. P., Bach, U., et al. (2018). *Polarimetric monitoring and EVPA rotations in AGN*. Astronomy & Astrophysics, 619, A88. [https://doi.org/10.1051/0004-6361/201732273](https://doi.org/10.1051/0004-6361/201732273)
 
 6. Blinov, D., Kiehlmann, S., Pavlidou, V., Panopoulou, G. V., Skalidis, R., Angelakis, E., Casadio, C., et al. (2021). *RoboPol: connection between optical polarization plane rotations and gamma-ray flares in blazars*. Monthly Notices of the Royal Astronomical Society, 501, 3715–3726. [https://doi.org/10.1093/mnras/staa3777](https://doi.org/10.1093/mnras/staa3777)
+
 
 
 
