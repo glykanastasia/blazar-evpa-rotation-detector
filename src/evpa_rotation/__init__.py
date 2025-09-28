@@ -49,8 +49,8 @@ from .plotter import (
 )
 
 __version__ = "1.0.0"
-__author__ = "Your Name"
-__email__ = "your.email@example.com"
+__author__ = "Anastasia Glykopoulou"
+__email__ = "glykopoulouanastasia@gmail.com"
 
 __all__ = [
     # Main classes
