@@ -100,59 +100,154 @@ def plot_bayesian_blocks_with_extrema(data, source, output_dir="plots", p0=0.001
         save_and_close_plot(fig, filename, output_dir)
 
 
+# def plot_rotation_event(sub_data, period_data, source_name, period_index, 
+#                        start_edge, end_edge, amplitude, t_pval, binom_p,
+#                        edges=None, bin_means=None, bin_errors=None,
+#                        output_dir="plots"):
+#     fig = plt.figure(figsize=(10, 6))
+    
+#     if period_data is not None:
+#         plt.errorbar(period_data['MJD'], period_data['adjusted_EVPA'],
+#                      yerr=period_data['err_EVPA[deg]'], fmt='o',
+#                      capsize=3, color='k', alpha=0.3, label='Period data')
+    
+#     plt.errorbar(sub_data['MJD'], sub_data['adjusted_EVPA'],
+#                  yerr=sub_data['err_EVPA[deg]'], fmt='o',
+#                  capsize=3, color='k', ecolor='k', label='Rotation data')
+
+#     if edges is not None and bin_means is not None:
+#         full_y = np.concatenate([bin_means, [bin_means[-1]]])
+#         plt.step(edges, full_y, where='post',
+#                  color='#333333', alpha=0.7, linewidth=1.5, 
+#                  label='Bayesian blocks (full)')
+        
+#         if bin_errors is not None:
+#             lower = np.concatenate([bin_means - bin_errors,
+#                                     [bin_means[-1] - bin_errors[-1]]])
+#             upper = np.concatenate([bin_means + bin_errors,
+#                                     [bin_means[-1] + bin_errors[-1]]])
+#             plt.fill_between(edges, lower, upper,
+#                              step='post', alpha=0.2, color='#333333')
+
+#     plt.xlim(start_edge, end_edge)
+#     y_margin = amplitude * 0.2
+#     plt.ylim(sub_data['adjusted_EVPA'].min() - y_margin,
+#              sub_data['adjusted_EVPA'].max() + y_margin)
+
+#     plt.xlabel('Modified Julian Date (days)', fontsize=14)
+#     plt.ylabel('Corrected EVPA (°)', fontsize=14)
+#     plt.title(f'Rotation Event for {source_name} | Period {period_index} | '
+#               f'MJD {start_edge:.1f}–{end_edge:.1f} | ΔEVPA = {amplitude:.1f}°', fontsize=16)
+    
+#     plt.text(0.05, 0.95,
+#              f"$p_{{\\mathrm{{t-test}}}} = {t_pval:.2e}$\n"
+#              f"$p_{{\\mathrm{{binomial}}}} = {binom_p:.2e}$",
+#              transform=plt.gca().transAxes,
+#              fontsize=12, ha='left', va='top',
+#              bbox=dict(facecolor='white', edgecolor='black', alpha=0.8, pad=5))
+    
+#     plt.legend(loc='best', frameon=True, framealpha=0.8)
+#     plt.grid(True, linestyle='--', linewidth=0.5)
+#     plt.tight_layout()
+    
+#     filename = f"{source_name.replace(' ', '_')}_rotation_p{period_index}_{start_edge:.1f}_{end_edge:.1f}.png"
+#     save_and_close_plot(fig, filename, output_dir)
+
 def plot_rotation_event(sub_data, period_data, source_name, period_index, 
                        start_edge, end_edge, amplitude, t_pval, binom_p,
                        edges=None, bin_means=None, bin_errors=None,
                        output_dir="plots"):
-    fig = plt.figure(figsize=(10, 6))
+
+    fig, ax = plt.subplots(figsize=(10, 6))
     
+    # Full segment data (faded)
     if period_data is not None:
-        plt.errorbar(period_data['MJD'], period_data['adjusted_EVPA'],
-                     yerr=period_data['err_EVPA[deg]'], fmt='o',
-                     capsize=3, color='k', alpha=0.3, label='Period data')
+        ax.errorbar(period_data['MJD'], period_data['adjusted_EVPA'],
+                    yerr=period_data['err_EVPA[deg]'], fmt='.',
+                    capsize=3, color='k', alpha=0.3, markersize=4, label='Data Points')
     
-    plt.errorbar(sub_data['MJD'], sub_data['adjusted_EVPA'],
-                 yerr=sub_data['err_EVPA[deg]'], fmt='o',
-                 capsize=3, color='k', ecolor='k', label='Rotation data')
-
-    if edges is not None and bin_means is not None:
-        full_y = np.concatenate([bin_means, [bin_means[-1]]])
-        plt.step(edges, full_y, where='post',
-                 color='#333333', alpha=0.7, linewidth=1.5, 
-                 label='Bayesian blocks (full)')
+    # Rotation data (highlighted)
+    ax.errorbar(sub_data['MJD'], sub_data['adjusted_EVPA'],
+                yerr=sub_data['err_EVPA[deg]'], fmt='.',
+                capsize=3, color='k', ecolor='#333333', markersize=6, label='Rotation')
+    
+    # Bayesian Blocks with coloring
+    if edges is not None and bin_means is not None and bin_errors is not None:
+        bin_means = np.array(bin_means)
+        bin_errors = np.array(bin_errors)
         
-        if bin_errors is not None:
-            lower = np.concatenate([bin_means - bin_errors,
-                                    [bin_means[-1] - bin_errors[-1]]])
-            upper = np.concatenate([bin_means + bin_errors,
-                                    [bin_means[-1] + bin_errors[-1]]])
-            plt.fill_between(edges, lower, upper,
-                             step='post', alpha=0.2, color='#333333')
-
-    plt.xlim(start_edge, end_edge)
-    y_margin = amplitude * 0.2
-    plt.ylim(sub_data['adjusted_EVPA'].min() - y_margin,
-             sub_data['adjusted_EVPA'].max() + y_margin)
-
-    plt.xlabel('Modified Julian Date (days)', fontsize=14)
-    plt.ylabel('Corrected EVPA (°)', fontsize=14)
-    plt.title(f'Rotation Event for {source_name} | Period {period_index} | '
-              f'MJD {start_edge:.1f}–{end_edge:.1f} | ΔEVPA = {amplitude:.1f}°', fontsize=16)
+        for i in range(len(edges) - 1):
+            edge_start, edge_end = edges[i], edges[i+1]
+            y_val = bin_means[i]
+            
+            if edge_end <= start_edge or edge_start >= end_edge:
+                ax.plot([edge_start, edge_end], [y_val, y_val],
+                        color='gray', linestyle='--', alpha=0.7, linewidth=1.5)
+            else:
+                ax.plot([edge_start, edge_end], [y_val, y_val],
+                        color='tab:red', linestyle='-', alpha=0.7, linewidth=1.5)
+        
+        # Vertical connectors
+        for i in range(1, len(edges) - 1):
+            vertical_pos = edges[i]
+            if start_edge < vertical_pos < end_edge:
+                ax.plot([vertical_pos, vertical_pos], [bin_means[i-1], bin_means[i]],
+                        color='tab:red', linestyle='-', alpha=0.7, linewidth=1.0)
+            else:
+                ax.plot([vertical_pos, vertical_pos], [bin_means[i-1], bin_means[i]],
+                        color='gray', linestyle='-', alpha=0.5, linewidth=1.0)
+        
+        # Uncertainty band only in rotation interval
+        rotation_indices = [i for i in range(len(edges)-1)
+                            if not (edges[i+1] <= start_edge or edges[i] >= end_edge)]
+        if rotation_indices:
+            rot_edges = [edges[rotation_indices[0]]] + [edges[i+1] for i in rotation_indices]
+            rot_means = bin_means[rotation_indices]
+            rot_errors = bin_errors[rotation_indices]
+            
+            lower = np.concatenate([rot_means - rot_errors, [rot_means[-1] - rot_errors[-1]]])
+            upper = np.concatenate([rot_means + rot_errors, [rot_means[-1] + rot_errors[-1]]])
+            
+            ax.fill_between(rot_edges, lower, upper,
+                            step='post', alpha=0.2, color='tab:red')
     
-    plt.text(0.05, 0.95,
-             f"$p_{{\\mathrm{{t-test}}}} = {t_pval:.2e}$\n"
-             f"$p_{{\\mathrm{{binomial}}}} = {binom_p:.2e}$",
-             transform=plt.gca().transAxes,
-             fontsize=12, ha='left', va='top',
-             bbox=dict(facecolor='white', edgecolor='black', alpha=0.8, pad=5))
+    # Limits
+    ax.set_xlim(start_edge - 5, end_edge + 5)
+    ax.set_ylim(sub_data['adjusted_EVPA'].min() - 20,
+                sub_data['adjusted_EVPA'].max() + 20)
     
-    plt.legend(loc='best', frameon=True, framealpha=0.8)
-    plt.grid(True, linestyle='--', linewidth=0.5)
+    # Text box with stats
+    ax.text(0.05, 0.95,
+            f"$p_{{\\mathrm{{t-test}}}} = {t_pval:.2e}$\n"
+            f"$p_{{\\mathrm{{binomial}}}} = {binom_p:.2e}$",
+            transform=ax.transAxes,
+            fontsize=10, ha='left', va='top',
+            bbox=dict(facecolor='white', edgecolor='black', alpha=0.8, pad=3))
+    
+    ax.set_xlabel('Modified Julian Date (MJD)')
+    ax.set_ylabel('EVPA [°]')
+    ax.set_title(f'{source_name} | Rotation {period_index} | '
+                 f'MJD {start_edge:.1f}–{end_edge:.1f} | ΔEVPA = {amplitude:.1f}°')
+    
+    ax.grid(True, linestyle='--', linewidth=0.5, alpha=0.7)
+    
+    # Custom legend
+    from matplotlib.lines import Line2D
+    legend_elements = [
+        Line2D([0], [0], color='k', marker='.', linestyle='None',
+               markersize=4, alpha=0.3, label='Data Points'),
+        Line2D([0], [0], color='k', marker='.', linestyle='None',
+               markersize=6, label='Rotation'),
+        Line2D([0], [0], color='tab:red', linestyle='-', linewidth=1.5,
+               label='Bayesian Blocks (Rotation)'),
+        Line2D([0], [0], color='gray', linestyle='--', linewidth=1.5,
+               label='Bayesian Blocks (Outside)')
+    ]
+    ax.legend(handles=legend_elements, loc='best', frameon=True, framealpha=0.8, fontsize=9)
+    
     plt.tight_layout()
-    
-    filename = f"{source_name.replace(' ', '_')}_rotation_p{period_index}_{start_edge:.1f}_{end_edge:.1f}.png"
+    filename = f"{source_name.replace(' ', '_')}_rotation_{period_index}_{start_edge:.1f}_{end_edge:.1f}.png"
     save_and_close_plot(fig, filename, output_dir)
-
 
 def plot_source_overview(data, source_name, output_dir="plots"):
     from .loader import prepare_source_data
