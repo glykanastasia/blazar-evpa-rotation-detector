@@ -46,24 +46,53 @@
 
 ## 2. Installation
 
-**Via pip:**
+### Option 1: Download ZIP (Quick Start - No Git Required)
+
+**Perfect for quick testing or if you don't have Git installed:**
+
+1. **Download:** Click the green "Code" button on GitHub → "Download ZIP"
+2. **Extract:** Unzip the downloaded file
+3. **Setup environment:**
+   ```bash
+   cd blazar-evpa-rotation-detector-main
+   conda env create -f environment.yml
+   conda activate evpa-rotation
+   ```
+4. **Run analysis:**
+   ```bash
+   python analyze.py
+   ```
+
+⚠️ **Important:** You must be in the extracted directory to run the code.
+
+---
+
+### Option 2: Via Git Clone + pip
 
 ```bash
+git clone https://github.com/glykanastasia/blazar-evpa-rotation-detector.git
+cd blazar-evpa-rotation-detector
 pip install -e .
 ```
 
-**Via conda:**
+---
+
+### Option 3: Via conda (from cloned repo)
 
 ```bash
+git clone https://github.com/glykanastasia/blazar-evpa-rotation-detector.git
+cd blazar-evpa-rotation-detector
 conda env create -f environment.yml
 conda activate evpa-rotation
 ```
 
-**Development mode:**
+---
+
+### Option 4: Development mode (for contributors)
 
 ```bash
 git clone https://github.com/glykanastasia/blazar-evpa-rotation-detector.git
-cd evpa-rotation-analysis
+cd blazar-evpa-rotation-detector
 pip install -e .[dev,docs,plotting]
 ```
 
@@ -185,17 +214,63 @@ pytest --cov=evpa_rotation  # Coverage report
 
 ## 9. Citation & Contact
 
-**Citation:**
+### How to Cite This Software
 
-> Glykopoulou Anastasia (2025). *EVPA Rotation Analysis: blazar-evpa-rotation-detector*. GitHub repository. Commit d4dbd2b (Aug 7, 2025). [https://github.com/glykanastasia/blazar-evpa-rotation-detector](https://github.com/glykanastasia/blazar-evpa-rotation-detector)
+**If you use this software in your research, please cite it!** This helps support continued development and allows others to discover the tool.
 
-**Contact & Support:**
+#### BibTeX Entry
+
+```bibtex
+@software{glykopoulou2025evpa,
+  author = {Glykopoulou, Anastasia},
+  title = {EVPA Rotation Analysis: A Python package for detecting EVPA rotations in AGN},
+  year = {2025},
+  url = {https://github.com/glykanastasia/blazar-evpa-rotation-detector},
+  version = {1.0.0}
+}
+```
+
+#### Text Citation
+
+> Glykopoulou, A. (2025). *EVPA Rotation Analysis: blazar-evpa-rotation-detector* (Version 1.0.0) [Computer software]. https://github.com/glykanastasia/blazar-evpa-rotation-detector
+
+#### APA Style
+
+> Glykopoulou, A. (2025). *EVPA Rotation Analysis: blazar-evpa-rotation-detector* (Version 1.0.0) [Computer software]. GitHub. https://github.com/glykanastasia/blazar-evpa-rotation-detector
+
+---
+
+### Acknowledgments
+
+If this software contributed to your published work, we kindly request that you:
+
+1. **Cite the software** using one of the formats above
+2. **Mention it in your acknowledgments section**, for example:
+
+> "This research made use of the EVPA Rotation Analysis package (Glykopoulou, 2025), available at https://github.com/glykanastasia/blazar-evpa-rotation-detector"
+
+3. **Reference the underlying methodology** from:
+   - Blinov et al. (2015) for rotation detection criteria (MNRAS, 453, 1669)
+   - Blinov et al. (2021) for the monitoring data compilation (MNRAS, 501, 3715)
+
+---
+
+### Contact & Support
 
 * **Developer:** Glykopoulou Anastasia (Bachelor Student)  
   Department of Physics, University of Crete  
   Institute of Astrophysics, Foundation for Research and Technology – Hellas (FORTH)  
-  Email: [glykopoulouanastasia@gmail.com](mailto:glykopoulouanastasi@gmail.com)
-* **GitHub Issues:** [https://github.com/glykanastasia/blazar-evpa-rotation-detector/issues](https://github.com/glykanastasia/blazar-evpa-rotation-detector/issues)
+  Email: [glykopoulouanastasia@gmail.com](mailto:glykopoulouanastasia@gmail.com)
+
+* **Report Issues:** [GitHub Issues](https://github.com/glykanastasia/blazar-evpa-rotation-detector/issues)
+
+* **Contributions:** Pull requests are welcome! Please see our contributing guidelines.
+
+---
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -212,7 +287,3 @@ pytest --cov=evpa_rotation  # Coverage report
 5. Myserlis, I., Komossa, S., Angelakis, E., Gómez, J. L., Karamanavis, V., Krichbaum, T. P., Bach, U., et al. (2018). *Polarimetric monitoring and EVPA rotations in AGN*. Astronomy & Astrophysics, 619, A88. [https://doi.org/10.1051/0004-6361/201732273](https://doi.org/10.1051/0004-6361/201732273)
 
 6. Blinov, D., Kiehlmann, S., Pavlidou, V., Panopoulou, G. V., Skalidis, R., Angelakis, E., Casadio, C., et al. (2021). *RoboPol: connection between optical polarization plane rotations and gamma-ray flares in blazars*. Monthly Notices of the Royal Astronomical Society, 501, 3715–3726. [https://doi.org/10.1093/mnras/staa3777](https://doi.org/10.1093/mnras/staa3777)
-
-
-
-
