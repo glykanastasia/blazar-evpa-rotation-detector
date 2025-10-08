@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it as below."
+title: "EVPA Rotation Analysis: A Python package for detecting and analyzing EVPA rotations in AGN"
+authors:
+  - family-names: Glykopoulou
+    given-names: Anastasia
+    email: glykopoulouanastasia@gmail.com
+    affiliation: "Department of Physics, University of Crete; Institute of Astrophysics, FORTH"
+version: 1.0.0
+date-released: 2025-08-07
+repository-code: "https://github.com/glykanastasia/blazar-evpa-rotation-detector"
+url: "https://github.com/glykanastasia/blazar-evpa-rotation-detector"
+license: MIT
+keywords:
+  - astronomy
+  - astrophysics
+  - AGN
+  - blazars
+  - polarimetry
+  - EVPA
+  - rotation detection
+  - Bayesian Blocks
+abstract: "A Python package for automated detection and statistical analysis of Electric Vector Position Angle (EVPA) rotations in polarimetric monitoring data of Active Galactic Nuclei (AGN). Implements Bayesian Blocks segmentation, 180-degree ambiguity resolution, and statistical testing (Student's t-test and binomial test) for robust rotation identification."
+references:
+  - type: article
+    authors:
+      - family-names: Blinov
+        given-names: D.
+      - family-names: Kiehlmann
+        given-names: S.
+      - family-names: Pavlidou
+        given-names: V.
+    title: "RoboPol: connection between optical polarization plane rotations and gamma-ray flares in blazars"
+    journal: "Monthly Notices of the Royal Astronomical Society"
+    volume: 501
+    year: 2021
+    start: 3715
+    end: 3726
+    doi: 10.1093/mnras/staa3777
+preferred-citation:
+  type: software
+  authors:
+    - family-names: Glykopoulou
+      given-names: Anastasia
+  title: "EVPA Rotation Analysis: blazar-evpa-rotation-detector"
+  year: 2025
+  repository-code: "https://github.com/glykanastasia/blazar-evpa-rotation-detector"
