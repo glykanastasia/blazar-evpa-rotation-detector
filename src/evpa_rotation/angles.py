@@ -7,66 +7,44 @@ import numpy as np
 
 def adjust_angles(angles, errors):
     """
-    Adjust the EVPA angles to resolve the 180° ambiguity based on minimal changes
-    between consecutive measurements and accounting for measurement errors.
-    
-    Parameters:
-    -----------
-    angles : list or array
-        EVPA measurements in degrees
-    errors : list or array
-        Corresponding errors for the EVPA measurements
-    
-    Returns:
-    --------
-    list
-        The adjusted EVPA measurements
-        
-    Procedure:
-    ----------
-    - Compute the error-weighted EVPA variation between successive angles
-    - If the variation Δθ = |θₙ₊₁ − θₙ| - sqrt(σ(θₙ₊₁)² + σ(θₙ)²) ≤ 90°,
-      no shift is applied
-    - If Δθ > 90°, try candidate shifts of multiples of 180° (n = -5,...,5)
-      and choose the candidate that minimizes Δθ
+    Improved EVPA angle adjustment accounting for measurement errors.
     """
     if len(angles) == 0:
         return []
     
-    adjusted = [angles[0]]  # Use the first measurement as is
-
+    adjusted = [angles[0]]
+    
     for i in range(1, len(angles)):
         prev = adjusted[-1]
         current = angles[i]
         
-        # Calculate the error term for the current and previous measurement
+        # Calculate error-weighted difference
         error_term = np.sqrt(errors[i]**2 + errors[i-1]**2)
-        
-        # Compute the error-weighted difference for the unshifted value
         raw_diff = abs(current - prev)
         
-        # If the raw difference is smooth, leave the value unchanged
-        if raw_diff <= 90:
+        # Implement the error-weighted condition mentioned in comments
+        weighted_diff = raw_diff - error_term
+        
+        # Only apply shifts if the change is significant beyond measurement errors
+        if weighted_diff <= 90:
             adjusted.append(current)
         else:
-            # Search for a candidate that minimizes the weighted difference
-            best_candidate = current  # default to no shift
-            best_diff = float('inf')
+            # Search for best candidate considering error-weighted differences
+            best_candidate = current
+            best_weighted_diff = float('inf')
             
-            # Try shifts over a reasonable range (from -5 to +5 multiples of 180°)
             for n in range(-5, 6):
                 candidate = current + 180 * n
                 candidate_diff = abs(candidate - prev)
+                candidate_weighted_diff = candidate_diff - error_term
                 
-                # Look at the absolute value of the weighted difference
-                if abs(candidate_diff) < best_diff:
-                    best_diff = abs(candidate_diff)
+                if abs(candidate_weighted_diff) < best_weighted_diff:
+                    best_weighted_diff = abs(candidate_weighted_diff)
                     best_candidate = candidate
             
             adjusted.append(best_candidate)
     
     return adjusted
-
 
 def compute_angle_statistics(angles, errors):
     """
