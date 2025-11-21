@@ -276,14 +276,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 10. References
 
-1. Angel, J. R. P. & Stockman, H. S. (1980). *Optical and Infrared Polarization of Active Extragalactic Objects*. Annual Review of Astronomy and Astrophysics, 18, 321–361. [https://doi.org/10.1146/annurev.aa.18.090180.001541](https://doi.org/10.1146/annurev.aa.18.090180.001541)
 
-2. Hovatta, T., Lindfors, E., Blinov, D., Pavlidou, V., Nilsson, K., Kiehlmann, S., Angelakis, E., et al. (2016). *Optical polarization of high-energy BL Lacertae objects*. Astronomy & Astrophysics, 596, A78. [https://doi.org/10.1051/0004-6361/201628974](https://doi.org/10.1051/0004-6361/201628974)
-
-3. Scargle, J. D., et al. (2013). *Bayesian Block Representations of Poisson Data*. The Astrophysical Journal, 764, 167. [https://doi.org/10.1088/0004-637X/764/2/167](https://doi.org/10.1088/0004-637X/764/2/167)
-
-4. Blinov, D., Pavlidou, V., Papadakis, I., Kiehlmann, S., Panopoulou, G., Liodakis, I., King, O. G., et al. (2015). *RoboPol: first season rotations of optical polarization plane in blazars*. Monthly Notices of the Royal Astronomical Society, 453, 1669–1683. [https://doi.org/10.1093/mnras/stv1723](https://doi.org/10.1093/mnras/stv1723)
-
-5. Myserlis, I., Komossa, S., Angelakis, E., Gómez, J. L., Karamanavis, V., Krichbaum, T. P., Bach, U., et al. (2018). *Polarimetric monitoring and EVPA rotations in AGN*. Astronomy & Astrophysics, 619, A88. [https://doi.org/10.1051/0004-6361/201732273](https://doi.org/10.1051/0004-6361/201732273)
-
-6. Blinov, D., Kiehlmann, S., Pavlidou, V., Panopoulou, G. V., Skalidis, R., Angelakis, E., Casadio, C., et al. (2021). *RoboPol: connection between optical polarization plane rotations and gamma-ray flares in blazars*. Monthly Notices of the Royal Astronomical Society, 501, 3715–3726. [https://doi.org/10.1093/mnras/staa3777](https://doi.org/10.1093/mnras/staa3777)
