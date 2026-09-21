@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="data/banner.svg" alt="EVPA Rotation Detector" width="100%">
+</p>
+
 # Automated Detection of Polarization Angle Rotations in Blazars
 
 [![DOI](https://img.shields.io/badge/DOI-10.1051%2F0004--6361%2F202558360-blue)](https://doi.org/10.1051/0004-6361/202558360)
@@ -32,6 +36,7 @@ The pipeline combines error-weighted EVPA ambiguity correction, Bayesian Blocks 
 - [Usage](#usage)
 - [Input Data](#input-data)
 - [Output](#output)
+- [Example Output](#example-output)
 - [Testing](#testing)
 - [Reproducibility](#reproducibility)
 - [Citation](#citation)
@@ -298,6 +303,10 @@ blazar-evpa-rotation-detector/
 ├── CITATION.cff
 ├── environment.yml
 ├── setup.py
+├── data/
+│   ├── banner.svg
+│   ├── banner.png
+│   └── example_RBPLJ1751+0939.png
 ├── src/
 │   └── evpa_rotation/
 │       ├── __init__.py
@@ -420,6 +429,16 @@ rotation_analysis/
 - Rotation rate and rotation-rate uncertainty
 
 The plots show the EVPA measurements, the Bayesian Blocks representation, and the detected rotation intervals.
+
+---
+
+## Example Output
+
+<p align="center">
+  <img src="data/example_RBPLJ1751+0939.png" alt="Detected EVPA rotation in RBPLJ1751+0939" width="85%">
+</p>
+
+*EVPA curve of RBPLJ1751+0939 with Bayesian Blocks and the detected 359.7° rotation.*
 
 ---
 
